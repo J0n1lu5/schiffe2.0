@@ -6,22 +6,24 @@
 
 #define FIELD_SZ 10
 
-void ranndom_attack(uint8_t *grid_opponent){
+void random_attack(uint8_t *enemy_grid,uint8_t *last_shot){
     srand(684534);
     uint8_t x = rand()%10;
     uint8_t y = rand()%10;
-    if (check_shot(grid_opponent,x,y)) pewpew(x,y);
-    
+    if (shot_check(enemy_grid,x,y)) pewpew(x,y);
+    enemy_grid[y*10+x]=1;
+    last_shot[0]=x;
+    last_shot[1]=y;
 }
 
-bool check_shot (uint8_t *grid_opponent,uint8_t x, uint8_t y){
+uint8_t shot_check (const uint8_t *enemy_grid,uint8_t x, uint8_t y){
     //check if we shot at that coordinate already
-    if(grid_opponent[y*FIELD_SZ+x]!=0)return false;
+    if(enemy_grid[y*FIELD_SZ+x]!=0)return 1;
 
-    return true;
+    return 0;
 }
 
-void smart_shot (uint8_t *grid_opponent,uint8_t *x,uint8_t *y){
+void smart_shot (uint8_t *enemy_grid,uint8_t *x,uint8_t *y){
     //check bounderies
     uint8_t r=5;
 

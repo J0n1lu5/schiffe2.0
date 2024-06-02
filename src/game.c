@@ -32,9 +32,18 @@ uint8_t check_message(const char *received) {
     }
 }
 
-uint8_t check_game (const uint8_t *enemy_shot_map) {
+uint8_t check_loss (const uint8_t *enemy_shot_map) {
     for (int i=0;i<sizeof(enemy_shot_map);i++) {
         if (enemy_shot_map[i]!=0) return 0;
     }
     return 1;
+}
+
+uint8_t check_win (const uint8_t *enemy_grid) {
+    uint8_t count=0;
+    for (uint8_t i=0;i<sizeof(enemy_grid);i++) {
+        if (enemy_grid[i]==2) count++;
+    }
+    if (count==30) return 1;
+    return 0;
 }
