@@ -164,7 +164,7 @@ void print_grid(const uint8_t *grid_player) {
         for (int j = 0; j < 10; j++) {
             printf("%d", grid_player[i * 10 + j]);
         }
-        printf("\n");
+        //printf("\n");
     }
 }
 

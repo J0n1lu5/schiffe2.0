@@ -69,8 +69,11 @@ init();
     uint8_t state =0;
     uint8_t i=0;
     uint8_t last_shot[2]={0};
+    uint8_t seed=0;
 
     for(;;){
+        seed++;
+
         //receive message
         if (USART2->ISR & USART_ISR_RXNE){
             char received_char = USART2->RDR;
@@ -111,7 +114,10 @@ init();
             }
             //check loss
             check_loss(enemy_shot_map);
-            random_attack(enemy_grid,last_shot);
+            if (seed==99) {
+                asm("nop");
+            }
+            random_attack(enemy_grid,last_shot,seed);
             state=0;
             memset(received_string, 0, sizeof(received_string));
         }else if (state==4){
